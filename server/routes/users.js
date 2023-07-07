@@ -5,6 +5,8 @@ import { UserModel } from "../models/Users.js";
 
  const router = express.Router();
 
+ router.get('/', (req, res) => {res.send('sdsdsdsdsd')})
+
  router.post("/register", async (req, res) => {
   try {
     const {email, password} = req.body;
@@ -31,7 +33,7 @@ import { UserModel } from "../models/Users.js";
 router.post("/register/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    const { username, phone, birthYear } = req.body;
+    const { username, phone, year } = req.body;
     console.log(req.params);
     const user = await UserModel.findById(userId);
     if (!user) {
@@ -40,7 +42,7 @@ router.post("/register/:userId", async (req, res) => {
 
     user.username = username;
     user.phone = phone;
-    user.birthYear = birthYear;
+    user.year = year;
 
     await user.save();
 
@@ -71,7 +73,7 @@ res.json({token, userId:user._id})
 router.patch("/register/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    const {email,password, username, phone, birthYear } = req.body;
+    const {email,password, username, phone, year } = req.body;
     console.log(req.params);
     const user = await UserModel.findById(userId);
     if (!user) {
@@ -81,7 +83,7 @@ router.patch("/register/:userId", async (req, res) => {
     user.password = password
     user.username = username;
     user.phone = phone;
-    user.birthYear = birthYear;
+    user.year = year;
 
     await user.save();
 

@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 
 import { userRouter } from "./routes/users.js";
+import { todosRouter } from "./routes/todos.js";
 
 const app = express();
 
@@ -12,18 +13,18 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.json({jdjjd : "Welcom"})
+  res.json({welcom : "Welcom"})
 
 })
 
+
+
 app.use("/", userRouter)
+app.use("/todos", todosRouter)
 
 app.listen(3001, () => {
-  console.log("Server Work");
+  console.log("Server Work 3001");
 });
 
-
-// todosaberali
-//mongodb+srv://saberali1789:todosaberali@todo.pfsw3og.mongodb.net/
 
 
