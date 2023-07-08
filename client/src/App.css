@@ -1,0 +1,22 @@
+.form-container {
+    min-height: 100vh;
+    text-align: center;
+    background-image: url("./img/main-cover.png");
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.note-img {
+    width: 450px;
+    height: 800px;
+    background-image: url("./img/Cover.png");
+    background-size: cover;
+
+}
+
+.form-logo {
+    width: 80%;
+    background-color: #ffffff25;
+}

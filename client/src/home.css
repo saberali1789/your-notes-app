@@ -63,12 +63,17 @@ nav ul {
 	list-style: none;
 	color: var(--secondary);
 	text-decoration: none;
+	
 }
 
 ul :nth-child(1){
 	color: var(--secondary);
 	font-size: 22px;
 	font-weight: 600;
+}
+
+li {
+	cursor: pointer;
 }
 
 

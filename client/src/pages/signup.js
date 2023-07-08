@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {Link, useNavigate} from "react-router-dom"
 import axios from "axios";
 import { Login } from "./login";
+import { ReactComponent as MainLogo } from '../img/main-logo.svg';
 
 export const Signup = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +32,13 @@ export const Signup = () => {
 
   return (
     <div className="form-container">
-      <div className="notes-img"></div>
+      <div className="notes-img">
+      <div className="form-logo" >
+        <MainLogo className="main-logo"/>
+        <h1>Your Notes</h1>
+      </div>
+        <button>Ar</button>
+      </div>
       <div className="form-text">
         <form onSubmit={onSubmit}>
           <h2 className="title-form">Signup</h2>
