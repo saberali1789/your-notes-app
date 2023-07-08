@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react"
-import "../home.css"
+import "../home.css";
+import { ReactComponent as Logo } from '../img/logo.svg';
+import { ReactComponent as Moon } from '../img/moon.svg';
+import user from '../img/user.png';
+
 
 // const http://localhost:3001/ = 'http://localhost:3001'
 
@@ -67,13 +71,24 @@ const Home = () => {
 
     
       <div className="main">
+      <nav>
+      <div className="logo-side"><Logo className="logo"/><h2>Your Notes</h2></div>
+        
+        <ul>
+          <li>Ar</li>
+          <li><Moon /></li>
+          <li> <img src={require('../img/user.png')} alt="Logo" /></li>
+        </ul>
+      </nav>
+      <div className="img-div"></div>
+      <div className="todo-form">
         <div className="create-todo">
           <form action="">
-            <label htmlFor="name">Add Todo</label>
+            <label htmlFor="name"></label>
             {/* <input type="text" onChange={handleChange} /> */}
 
             <input type="text" className="add-todo-input" onChange={e => setNewTodo(e.target.value)} value={newTodo} />
-						<div className="button" onClick={addTodo}>Create Task</div>
+						<div className="button" onClick={addTodo}>+</div>
 
           </form>
         </div>
@@ -93,7 +108,7 @@ const Home = () => {
 				)) : (
 					<p>You currently have no tasks</p>
 				)}
-			</div>
+			</div></div>
 
 
 			
