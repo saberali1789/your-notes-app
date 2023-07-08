@@ -26,7 +26,7 @@ const Home = () => {
   };
 
   const completeTodo = async (id) => {
-    const data = await fetch(`http://localhost:3001/todo/complete/${id}`).then((res) =>
+    const data = await fetch(`http://localhost:3001/todos/complete/${id}`).then((res) =>
       res.json()
     );
 
@@ -59,11 +59,12 @@ const Home = () => {
   };
 
   const deleteTodo = async (id) => {
-    const data = await fetch(`http://localhost:3001/todo/delete/${id}`, {
+    const data = await fetch(`http://localhost:3001/todos/delete/${id}`, {
       method: "DELETE",
     }).then((res) => res.json());
 
     setTodos((todos) => todos.filter((todo) => todo._id !== data.result._id));
+    alert("Todo deleted successfully")
   };
   
     return(

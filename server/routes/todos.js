@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     
 try {
-    const response = await TodoModel.find({});
+    const response = await TodoModel.find();
     res.json({response});
 } catch (err) {
     res.json(err)
@@ -16,9 +16,6 @@ try {
 })
 router.post('/', async (req, res) => {
     const todo = new TodoModel(req.body);
-    console.log(todo);
-    // const user = await UserModel.findById(req.body.userOwner)
-    // user.complete.push(todo);
 try {
     
     const response = await todo.save();
@@ -40,7 +37,7 @@ try {
 // }
 // })
 
-router.get('/completed/ids/:userId', async(req, res) => {
+router.get('/complete/ids/:userId', async(req, res) => {
     try {
         const user = await UserModel.findById(req.body.userId) 
         res.json({savedTodos:user?.savedTodos})
@@ -50,19 +47,45 @@ router.get('/completed/ids/:userId', async(req, res) => {
     }
 
 })
-router.get('/completed', async(req, res) => {
-    try {
-        const user = await UserModel.findById(req.body.userId) 
-        const savedTodos = await TodoModel.find({
-            _id:{$in: user.savedTodos}
-        })
 
-        res.json({savedTodos})
+
+router.get('/complete/:id', async(req, res) => {
+    try {
+        const todo = await TodoModel.findById(req.params.id) 
+        
+       todo.complete = !todo.complete
+       
+     await  todo.save()
+     res.json(todo)
+        if(!todo){
+            res.json({message:'Todo not found!'})
+        }
     }catch (err) {
         res.json({message:err})
     }
 
 })
-
-
-export {router as todosRouter}
+// router.get('/complete', async(req, res) => {
+    //     try {
+        //         const user = await UserModel.findById(req.body.userId) 
+//         const savedTodos = await TodoModel.find({
+    //             _id:{$in: user.savedTodos}
+    //         })
+    
+    //         res.json({savedTodos})
+    //     }catch (err) {
+        //         res.json({message:err})
+        //     }
+        
+        // })
+        
+        router.delete('/delete/:id', async(req, res) => {
+            try {
+                
+                const resulte = await TodoModel.findByIdAndDelete(req.params.id)
+                res.json({message:'Todo deleted successfully'})
+            }catch (err) {
+                res.json({message:err})}
+        })
+        
+        export {router as todosRouter}
