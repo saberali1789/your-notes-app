@@ -10,7 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     GetTodos();
-  }, []);
+  }, [todos]);
 
   const GetTodos = () => {
     fetch("http://localhost:3001/todos")
