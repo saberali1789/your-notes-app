@@ -36,7 +36,7 @@ const Home = ({ toggleRtl, lang}) => {
 
   const GetTodos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/todos/");
+      const response = await axios.get("https://your-notes-app-2ppx.onrender.com/todos/");
       if (response.data && response.data.response) {
         setLooped(response.data.response);
       } else {
@@ -48,7 +48,7 @@ const Home = ({ toggleRtl, lang}) => {
   };
 
   // const GetTodos = async () => {
-  //   await fetch(`http://localhost:3001/todos/`)
+  //   await fetch(`https://your-notes-app-2ppx.onrender.com/todos/`)
   //     .then((res) => res.json())
   //     .then((data) => {
   //       if (data && data.response) {
@@ -61,7 +61,7 @@ const Home = ({ toggleRtl, lang}) => {
   // };
 
   const completeTodo = async (id) => {
-    const data = await fetch(`http://localhost:3001/todos/complete/${id}`).then(
+    const data = await fetch(`https://your-notes-app-2ppx.onrender.com/todos/complete/${id}`).then(
       (res) => res.json()
     );
 
@@ -80,7 +80,7 @@ const Home = ({ toggleRtl, lang}) => {
   };
 
   const addTodo = async () => {
-    const data = await fetch("http://localhost:3001/todos/", {
+    const data = await fetch("https://your-notes-app-2ppx.onrender.com/todos/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,7 @@ const Home = ({ toggleRtl, lang}) => {
   };
 
   const deleteTodo = async (id) => {
-    const data = await fetch(`http://localhost:3001/todos/delete/${id}`, {
+    const data = await fetch(`https://your-notes-app-2ppx.onrender.com/todos/delete/${id}`, {
       method: "DELETE",
     }).then((res) => res.json());
 
@@ -114,7 +114,7 @@ const Home = ({ toggleRtl, lang}) => {
 
   const filterTodos = async (filter) => {
     try {
-      const response = await axios.get("http://localhost:3001/todos");
+      const response = await axios.get("https://your-notes-app-2ppx.onrender.com/todos");
       let filteredTodos = [];
       if (filter === "completed") {
         filteredTodos = response.data.response.filter(

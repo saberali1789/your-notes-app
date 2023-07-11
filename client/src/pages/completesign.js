@@ -15,7 +15,7 @@ console.log(userId);
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(`http://localhost:3001/register/${userId}`, {
+      await axios.post(`https://your-notes-app-2ppx.onrender.com/register/${userId}`, {
         username,
         phone,
         year

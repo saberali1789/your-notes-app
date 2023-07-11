@@ -13,7 +13,7 @@ export const Signup = ({ toggleRtl, lang }) => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/register", {
+      const response = await axios.post("https://your-notes-app-2ppx.onrender.com/register", {
         email,
         password,
       });
