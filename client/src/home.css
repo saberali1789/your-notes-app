@@ -1,187 +1,214 @@
 :root {
-	--primary: #D81E5B;
-	--secondary: #D375B9;
-	--light: #EEE;
-	--light-alt: #61759b;
-	--dark: #131A26;
-	--dark-alt: #202B3E;
-	--gray: #d4d4d4;
-
-	
+  --primary: #d81e5b;
+  --secondary: #d375b9;
+  --light: #eee;
+  --light-alt: #61759b;
+  --dark: #131a26;
+  --dark-alt: #202b3e;
+  --gray: #d4d4d4;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
-	font-family: "Fira Sans", sans-serif;
+  font-family: "Fira Sans", sans-serif;
 }
 
 body {
-	background-color: var(--light);
-	color: var(--dark);
+  background-color: var(--light);
+
 }
 
 .main {
-	position: relative;
-	min-height: 100vh;
+  position: relative;
+  min-height: 100vh;
 }
 
 nav {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 0 20px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
-   width: 32px;
+  width: 32px;
 }
 
-.logo-side{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
+.logo-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 nav h2 {
-	font-size: 30px;
-	color: var(--secondary);
-	text-align: center;
-	font-weight: 400;
-		
+  font-size: 30px;
+  color: var(--secondary);
+  text-align: center;
+  font-weight: 400;
 }
 
 nav ul {
-    display: flex;
-    align-items: center;
-	justify-content: center;
-	gap: 40px;
-	list-style: none;
-	color: var(--secondary);
-	text-decoration: none;
-	
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  color: var(--secondary);
+  text-decoration: none;
 }
 
-ul :nth-child(1){
-	color: var(--secondary);
-	font-size: 22px;
-	font-weight: 600;
+ul :nth-child(1) {
+  color: var(--secondary);
+  font-size: 22px;
+  font-weight: 600;
 }
 
 li {
-	cursor: pointer;
+  cursor: pointer;
 }
-
-
 
 .todo-form {
-	position: absolute;
-	right: 25%;
-	top: 50%;
-	transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 20%;
 }
 
-.img-div{
-	min-height: 30vh;
-	background-image: url(./img/main-cover.png);
-	background-size:cover;
-	background-position: top;
+.img-div {
+  min-height: 30vh;
+  background-image: url(./img/main-cover.png);
+  background-size: cover;
+  background-position: top;
 }
 
+.create-todo {
+  width: 40%;
+}
 
-
-
-
-
-
-.todos{
-	width: 450px;
-	margin: 20px auto;
-	background-color: #fff;
-	box-shadow: 0 0px 10px rgba(0,0,0,0.2);
-
+.todos {
+  width: 40%;
+  margin: 20px auto;
+  background-color: #fff;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .todo {
-	position: relative;
-	background-color: #fff;
-	padding: 16px;
-	border: 1px solid var(--light);
-	display: flex;
-	align-items: center;
-	transition: 0.5s;
-	cursor: pointer;
-
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  background-color: #fff;
+  padding: 16px;
+  border: 1px solid var(--light);
+  display: flex;
+  align-items: center;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
 .todo:hover {
-	opacity: 0.8;
+  opacity: 0.8;
 }
 
 .todo .checkbox {
-	width: 20px;
-	height: 20px;
-	margin-right: 16px;
-	border-radius: 50%;
-	border: 1px solid var(--gray);
-	background-image: linear-gradient(to bottom, transparent, transparent);
-	transition: 0.4s;
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--gray);
+  background-image: linear-gradient(to bottom, transparent, transparent);
+  transition: 0.4s;
 }
 
 .todo.is-complete .checkbox {
-	background-color: var(--primary);
-	background-image: linear-gradient(to bottom, var(--primary), var(--secondary));
+  background-color: var(--primary);
+  background-image: linear-gradient(
+    to bottom,
+    var(--primary),
+    var(--secondary)
+  );
 }
 
 .todo .text {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 .todo.is-complete .text {
-	text-decoration: line-through;
+  text-decoration: line-through;
 }
 
-.todo .delete-todo {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	right: 16px;
-	color: var(--light-alt);
-	width: 24px;
-	height: 24px;
-	font-size: 24px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-weight:500;
+ .delete-todo {
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
+  color: var(--light-alt);
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
 }
 /*  */
 
 .add-todo-input {
-	appearance: none;
-	outline: none;
-	border: none;
-	background-color: #FFF;
-	padding: 16px;
-	border-radius: 5px;
-	width: 90%;
-	box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.2);
-	font-size: 20px;
+  appearance: none;
+  outline: none;
+  border: none;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 5px;
+  width: 90%;
+  box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.2);
+  font-size: 20px;
 }
 
 .button {
-	padding: 16px ;
-	border-radius: 5px;
-	background-image: linear-gradient(to right, var(--primary), var(--secondary));
-	display: inline-block;
-	font-weight: 700;
-	text-transform: uppercase;
-	font-size: 18px;
-	margin-top: 16px;
-	text-align: center;
-    cursor: pointer;
+  padding: 16px;
+  border-radius: 5px;
+  background-image: linear-gradient(to right, var(--primary), var(--secondary));
+  display: inline-block;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin-top: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+.lists {
+	display: flex;
+	gap: 1rem;
+
+}
+.lists div {
+	background-color: transparent;
+	border: none;
+	outline: none;
+	font-size: 20px;
+	font-weight: 500;
+	
+}
+.activeb {
+	color: #d375b9;
+}
+
+.rtl-element .delete-todo {
+    left: 16px;
+    position: relative;
 }

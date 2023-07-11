@@ -1,29 +1,64 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../home.css";
 import { ReactComponent as Logo } from "../img/logo.svg";
 import { ReactComponent as Moon } from "../img/moon.svg";
 import user from "../img/user.png";
+import axios from "axios";
 
-const Home = () => {
+const Home = ({ toggleRtl, lang}) => {
+  const userId = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const [todos, setTodos] = useState([]);
+  const [looped, setLooped] = useState([]);
   const [newTodo, setNewTodo] = useState("");
+  const [darkMode, setDarkMode] = useState( false );
+  const [drop, setDrop] = useState(false);
+
+
+  useEffect(() => {
+    const mode = localStorage.getItem("theem");
+    setDarkMode(mode === "true");
+  }, []);
+
+  const toggleTheem = ()=>{
+    setDarkMode(!darkMode);
+    localStorage.setItem('theem', JSON.stringify(!darkMode))
+  }
+  useEffect(() => {
+    if (!userId) {
+      window.location.href = "/login";
+    }
+  }, [userId]);
 
   useEffect(() => {
     GetTodos();
   }, [todos]);
 
-  const GetTodos = () => {
-    fetch("http://localhost:3001/todos")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && data.response) {
-          setTodos(data.response);
-        } else {
-          console.error("Invalid response data:", data);
-        }
-      })
-      .catch((err) => console.error("Error:", err));
+  const GetTodos = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/todos/");
+      if (response.data && response.data.response) {
+        setLooped(response.data.response);
+      } else {
+        console.error("Invalid response data:", response.data);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+
+  // const GetTodos = async () => {
+  //   await fetch(`http://localhost:3001/todos/`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data && data.response) {
+  //         setLooped(data.response);
+  //       } else {
+  //         console.error("Invalid response data:", data);
+  //       }
+  //     })
+  //     .catch((err) => console.error("Error:", err));
+  // };
 
   const completeTodo = async (id) => {
     const data = await fetch(`http://localhost:3001/todos/complete/${id}`).then(
@@ -45,7 +80,7 @@ const Home = () => {
   };
 
   const addTodo = async () => {
-    const data = await fetch("http://localhost:3001/todos", {
+    const data = await fetch("http://localhost:3001/todos/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,21 +110,63 @@ const Home = () => {
     }
   };
 
+  const [compTodos, setCompTodos] = useState([]);
+
+  const filterTodos = async (filter) => {
+    try {
+      const response = await axios.get("http://localhost:3001/todos");
+      let filteredTodos = [];
+      if (filter === "completed") {
+        filteredTodos = response.data.response.filter(
+          (todo) => todo.complete === true
+        );
+      } else if (filter === "active") {
+        filteredTodos = response.data.response.filter(
+          (todo) => todo.complete === false
+        );
+      } else {
+        filteredTodos = response.data.response;
+      }
+      setLooped(filteredTodos);
+    } catch (error) {
+      console.error("Error filtering todos:", error);
+    }
+  };
+
   return (
-    <div className="main">
-      <nav>
+    <div className={`main ${darkMode ? "dark-mode" : ""}`}>
+      <nav className="">
         <div className="logo-side">
           <Logo className="logo" />
           <h2>Your Notes</h2>
         </div>
         <ul>
-          <li>Ar</li>
+          <li onClick={toggleRtl}>Ar</li>
           <li>
-            <Moon />
+            <button className="mode" onClick={toggleTheem}>
+              <Moon />
+            </button>
           </li>
-          <li>
-            {" "}
+          <li
+            onClick={() => {
+              setDrop(!drop);
+            }}
+          >
             <img src={user} alt="Logo" />
+            {drop ? (
+              <div className="dropp">
+                <p>{lang ? "hi " : " مرحبا  "}{ userName} </p>
+                <button
+                  onClick={() => {
+                    localStorage.clear();
+                  }}
+                >
+                  LogOut
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </li>
         </ul>
       </nav>
@@ -110,14 +187,14 @@ const Home = () => {
           </form>
         </div>
         <div className="todos">
-          {todos.length > 0 ? (
-            todos.map((todo) => (
+          {looped.length > 0 ? (
+            looped.map((todo) => (
               <div
                 className={"todo" + (todo.complete ? " is-complete" : "")}
                 key={todo._id}
                 onClick={() => completeTodo(todo._id)}
               >
-                <div className="checkbox"></div>
+                <div className="checkbox" key={todo._id}></div>
                 <div className="text">{todo.text}</div>
                 <div
                   className="delete-todo"
@@ -130,6 +207,37 @@ const Home = () => {
           ) : (
             <p>You currently have no tasks</p>
           )}
+        </div>
+
+        <div className="footer todos">
+          <div className="count">
+            <p>{looped.length} {lang ? "Tasks" : "ملاحظات متبقية "}</p>
+          </div>
+          <div className="lists">
+            <div
+              className={`btn-footer ${
+                looped.length === todos.length ? "activeb" : ""
+              }`}
+              onClick={() => filterTodos("all")}
+            >
+              {lang ? "All" : "الكل "}
+            </div>
+            <div
+              className={`btn-footer ${
+                looped.length !== todos.length ? "activeb" : ""
+              }`}
+              onClick={() => filterTodos("active")}
+            >
+              {lang ? "Active" : "متبقي"}
+            </div>
+            <div
+              className={`btn-footer ${compTodos.length > 0 ? "activeb" : ""}`}
+              onClick={() => filterTodos("completed")}
+            >
+              {lang ? "Completed" : "منتهي "}
+            </div>
+          </div>
+          <div className="clear">{lang ? "Clear" : " مسح المنتهى"}</div>
         </div>
       </div>
     </div>
